@@ -64,8 +64,12 @@ app.get('/jokebook/joke/:category', (req, res) => {
 
   res.json(randomJoke);
 });
-
-
+app.get('/jokebook/all', (req, res) => {
+  res.json({
+    funnyJoke,
+    lameJoke
+  });
+});
 //TODO3
 
 

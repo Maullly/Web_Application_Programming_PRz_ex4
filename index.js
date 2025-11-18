@@ -15,6 +15,18 @@ app.get('/math/circle/:r', (req, res) => {
     circumference: circumference.toFixed(2)
   });
 });
+//4_1.2
+app.get('/math/rectangle/:width/:height', (req, res) => {
+  const w = parseFloat(req.params.width);
+  const h = parseFloat(req.params.height);
+  if (isNaN(w) || isNaN(h) || w < 0 || h < 0)
+    return res.status(400).json({ error: 'Invalid input' });
+
+  res.json({
+    area: w * h,
+    perimeter: 2 * (w + h)
+  });
+});
 
 //TODO2
 

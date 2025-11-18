@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>4_3_1</title>
+</head>
+<body>
+  <h1>Żarty</h1>
+
+  <button id="getCategories">Pobierz kategorie</button>
+  <button id="getRandomJoke">Pobierz losowy żart</button>
+
+  <pre id="output"></pre>
+
+  <script>
+    const output = document.getElementById('output');
+
+    document.getElementById('getCategories').onclick = async () => {
+      const res = await fetch('http://localhost:3000/jokebook/categories');
+      const data = await res.json();
+      output.textContent = JSON.stringify(data, null, 2);
+    };
+
+    document.getElementById('getRandomJoke').onclick = async () => {
+      // najpierw pobieramy kategorie
+      const resCat = await fetch('http://localhost:3000/jokebook/categories');
+      const categories = await resCat.json();
+
+      // losujemy kategorię
+      const randomCategory = categories[Math.floor(Math.random() * categories.length)];
+
+      // pobieramy żart
+      const resJoke = await fetch(`http://localhost:3000/jokebook/joke/${randomCategory}`);
+      const joke = await resJoke.json();
+
+      output.textContent = JSON.stringify(joke, null, 2);
+    };
+  </script>
+</body>
+</html>

@@ -1,8 +1,9 @@
 'use strict';
 const { categories, funnyJoke, lameJoke } = require('./data');
-
 const express = require('express');
 const app = express();
+const cors = require('cors');
+app.use(cors());
 
 app.get('/math/circle/:r', (req, res) => {
   const r = parseFloat(req.params.r);
@@ -46,7 +47,7 @@ app.get('/math/power/:base/:exponent', (req, res) => {
 
   res.json(response);
 });
-//4_2_1
+//4_2_1 
 app.get('/jokebook/categories', (req, res) => {
   res.json(categories);
 });
@@ -66,7 +67,7 @@ app.get('/jokebook/joke/:category', (req, res) => {
 });
 
 
-//TODO3
+//4_3_1 żeby poprawnie wyświetlało html'a trzeba go ręcznie uruchomić z folderu
 
 
 const PORT = process.env.PORT || 3000;

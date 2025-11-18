@@ -1,4 +1,5 @@
 'use strict';
+const { categories, funnyJoke, lameJoke } = require('./data');
 
 const express = require('express');
 const app = express();
@@ -45,7 +46,24 @@ app.get('/math/power/:base/:exponent', (req, res) => {
 
   res.json(response);
 });
-//TODO2
+//4_2_1
+app.get('/jokebook/categories', (req, res) => {
+  res.json(categories);
+});
+
+app.get('/jokebook/joke/:category', (req, res) => {
+  const { category } = req.params;
+
+  if (!categories.includes(category)) {
+    return res.status(400).json({ error: `no jokes for category ${category}` });
+  }
+
+  let jokeList = category === 'funnyJoke' ? funnyJoke : lameJoke;
+
+  const randomJoke = jokeList[Math.floor(Math.random() * jokeList.length)];
+
+  res.json(randomJoke);
+});
 
 
 //TODO3
